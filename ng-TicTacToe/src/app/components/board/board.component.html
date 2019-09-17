@@ -1,0 +1,14 @@
+<p>current palyer : {{ player_turn() }}</p>
+<button (click)="start_a_game()">start a new game</button>
+
+<div *ngIf="winner">
+  <p>The winner is {{ winner }}</p>
+</div>
+
+<div class="board">
+  <app-square 
+    *ngFor="let v of squares; let i = index"
+    [value]="v"
+    (click)="click_square(i)"
+    ></app-square>
+</div>
