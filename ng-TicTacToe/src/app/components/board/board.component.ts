@@ -15,8 +15,18 @@ export class BoardComponent implements OnInit {
     this.start_a_game()
   }
 
+  init_squares = ()=>{
+    this.squares = new Array()
+    for (let i = 0; i < 9; i++) {
+      this.squares.push({
+        value: '',
+        disabled: false
+      })
+    }    
+  }
+
   start_a_game = ()=>{
-    this.squares = Array(9).fill('')
+    this.init_squares()
     this.is_x_turn = true 
     this.winner = null
   }
@@ -26,12 +36,11 @@ export class BoardComponent implements OnInit {
   }
 
   click_square = index =>{
-    console.log(this.squares[index]);
-    
-    if(this.squares[index] === ''){
-      this.squares.splice(index, 1, this.player_turn())
+     
+    if(this.squares[index].value === ''){
+      this.squares.splice(index, 1, { value: this.player_turn(), disabled: true})
       this.is_x_turn = !this.is_x_turn
-    }
+    }   
 
     this.winner = this.winning()
   }
@@ -50,11 +59,21 @@ export class BoardComponent implements OnInit {
 
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
-      if (this.squares[a] && this.squares[a] === this.squares[b] && this.squares[a] === this.squares[c]) {
-        return this.squares[a]
+      if (this.squares[a].value && this.squares[a].value === this.squares[b].value && this.squares[a].value === this.squares[c].value) {
+        
+        this.disable_buttons()
+        
+        return this.squares[a].value
       }
     }
     return null
+  }
+
+  disable_buttons = ()=>{
+    this.squares.forEach(square => {
+      if(square.value === '')
+        square.disabled = true
+    })
   }
 
 }

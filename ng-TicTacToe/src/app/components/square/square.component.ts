@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SquareComponent {
 
-  @Input() value
+  @Input() value: string
+  @Input() disabled: boolean = false
 
 }

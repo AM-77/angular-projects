@@ -7,8 +7,9 @@
 
 <div class="board">
   <app-square 
-    *ngFor="let v of squares; let i = index"
-    [value]="v"
+    *ngFor="let square of squares; let i = index"
+    [value]="square.value"
+    [disabled]="square.disabled"
     (click)="click_square(i)"
     ></app-square>
 </div>
